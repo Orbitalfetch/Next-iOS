@@ -1,5 +1,5 @@
 //
-//  extensions.swift
+//  Extensions.swift
 //  Next
 //
 //  Created by Constantin Clerc on 12/02/2023.

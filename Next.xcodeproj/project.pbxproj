@@ -10,7 +10,7 @@
 		F1769CF52999A96D0056B719 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1769CEC2999A96D0056B719 /* Assets.xcassets */; };
 		F1769CF62999A96D0056B719 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1769CEE2999A96D0056B719 /* Preview Assets.xcassets */; };
 		F1769CF72999A96D0056B719 /* NextApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CEF2999A96D0056B719 /* NextApp.swift */; };
-		F1769CF82999A96D0056B719 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF02999A96D0056B719 /* extensions.swift */; };
+		F1769CF82999A96D0056B719 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF02999A96D0056B719 /* Extensions.swift */; };
 		F1769CF92999A96D0056B719 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF12999A96D0056B719 /* New.swift */; };
 		F1769CFA2999A96D0056B719 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF22999A96D0056B719 /* Feed.swift */; };
 		F1769CFB2999A96D0056B719 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF32999A96D0056B719 /* Account.swift */; };
@@ -22,7 +22,7 @@
 		F1769CEC2999A96D0056B719 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1769CEE2999A96D0056B719 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F1769CEF2999A96D0056B719 /* NextApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextApp.swift; sourceTree = "<group>"; };
-		F1769CF02999A96D0056B719 /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		F1769CF02999A96D0056B719 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F1769CF12999A96D0056B719 /* New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		F1769CF22999A96D0056B719 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		F1769CF32999A96D0056B719 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 				F1769CEC2999A96D0056B719 /* Assets.xcassets */,
 				F1769CED2999A96D0056B719 /* Preview Content */,
 				F1769CEF2999A96D0056B719 /* NextApp.swift */,
-				F1769CF02999A96D0056B719 /* extensions.swift */,
+				F1769CF02999A96D0056B719 /* Extensions.swift */,
 				F1769CF12999A96D0056B719 /* New.swift */,
 				F1769CF22999A96D0056B719 /* Feed.swift */,
 				F1769CF32999A96D0056B719 /* Account.swift */,
@@ -154,7 +154,7 @@
 				F1769CFC2999A96D0056B719 /* ContentView.swift in Sources */,
 				F1769CFA2999A96D0056B719 /* Feed.swift in Sources */,
 				F1769CF92999A96D0056B719 /* New.swift in Sources */,
-				F1769CF82999A96D0056B719 /* extensions.swift in Sources */,
+				F1769CF82999A96D0056B719 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
