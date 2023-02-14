@@ -18,9 +18,9 @@ struct ContentView: View {
                 .tabItem {
                     Label("Add", systemImage: "plus")
                 }
-            Account()
+            Stages()
                 .tabItem {
-                    Label("Account", systemImage: "person.circle")
+                    Label("Stages", systemImage: "person.2.crop.square.stack")
                 }
         }
     }

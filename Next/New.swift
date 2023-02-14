@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct New: View {
+    @State private var animateGradient = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .hueRotation(.degrees(animateGradient ? 45 : 0))
+                .ignoresSafeArea()
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
+                        animateGradient.toggle()
+                    }
+                }
+        }
     }
 }
 

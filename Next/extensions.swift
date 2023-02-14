@@ -16,14 +16,14 @@ extension UIApplication {
             currentUIAlertController?.dismiss(animated: animated)
         }
     }
+    func stage(completion: @escaping (String?)->Void) {
+
+    }
     func alert(title: String = "Error", body: String, animated: Bool = true, withButton: Bool = true) {
         DispatchQueue.main.async {
             currentUIAlertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
-            print("written title and body")
             if withButton { currentUIAlertController?.addAction(.init(title: "OK", style: .cancel)) }
-            print("added button")
             self.present(alert: currentUIAlertController!)
-            print("presented")
         }
     }
     func postAlert(title: String = "Error", body: String, onOK: @escaping () -> (), infoAbt: @escaping () -> (), noCancel: Bool, key: Int) {
@@ -45,6 +45,7 @@ extension UIApplication {
             self.present(alert: currentUIAlertController!)
         }
     }
+
     func postInfo(title: String = "Error", body: String, onOK: @escaping () -> (), infoAbt: @escaping () -> (), noCancel: Bool) {
         DispatchQueue.main.async {
             currentUIAlertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
