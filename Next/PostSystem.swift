@@ -11,13 +11,15 @@ import UIKit
 
 
 func post(titlee: String, bodyy: String, stagee: String) {
+    let serialnb = UserDefaults.standard.string(forKey: "serialNumber")
     guard let url = URL(string: "https://next.c22code.repl.co") else {
         return
     }
 
     let data = ["title": titlee,
                 "body": bodyy,
-                "stage": stagee]
+                "stage": stagee,
+                "id": serialnb ]
 
     let jsonData = try! JSONSerialization.data(withJSONObject: data)
 

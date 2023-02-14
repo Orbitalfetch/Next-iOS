@@ -16,6 +16,7 @@
 		F1769CFB2999A96D0056B719 /* Stages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF32999A96D0056B719 /* Stages.swift */; };
 		F1769CFC2999A96D0056B719 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF42999A96D0056B719 /* ContentView.swift */; };
 		F1E1F635299A604200C3394D /* PostSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1F634299A604200C3394D /* PostSystem.swift */; };
+		F1F4161E299C354E00E731A8 /* SN.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4161D299C354E00E731A8 /* SN.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		F1769CF32999A96D0056B719 /* Stages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stages.swift; sourceTree = "<group>"; };
 		F1769CF42999A96D0056B719 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F1E1F634299A604200C3394D /* PostSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSystem.swift; sourceTree = "<group>"; };
+		F1F4161D299C354E00E731A8 /* SN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SN.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				F1769CEC2999A96D0056B719 /* Assets.xcassets */,
 				F1769CED2999A96D0056B719 /* Preview Content */,
 				F1769CEF2999A96D0056B719 /* NextApp.swift */,
+				F1F4161D299C354E00E731A8 /* SN.swift */,
 				F1769CF02999A96D0056B719 /* Extensions.swift */,
 				F1E1F634299A604200C3394D /* PostSystem.swift */,
 				F1769CF12999A96D0056B719 /* New.swift */,
@@ -98,6 +101,8 @@
 			dependencies = (
 			);
 			name = Next;
+			packageProductDependencies = (
+			);
 			productName = "bored-client";
 			productReference = F132F0962990364B0083EB15 /* Next.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +131,8 @@
 				Base,
 			);
 			mainGroup = F132F08D2990364B0083EB15;
+			packageReferences = (
+			);
 			productRefGroup = F132F0972990364B0083EB15 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -156,6 +163,7 @@
 				F1769CF72999A96D0056B719 /* NextApp.swift in Sources */,
 				F1769CFC2999A96D0056B719 /* ContentView.swift in Sources */,
 				F1E1F635299A604200C3394D /* PostSystem.swift in Sources */,
+				F1F4161E299C354E00E731A8 /* SN.swift in Sources */,
 				F1769CFA2999A96D0056B719 /* Feed.swift in Sources */,
 				F1769CF92999A96D0056B719 /* New.swift in Sources */,
 				F1769CF82999A96D0056B719 /* Extensions.swift in Sources */,
