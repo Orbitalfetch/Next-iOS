@@ -9,17 +9,34 @@ import SwiftUI
 
 struct Feed: View {
     @State private var animateGradient = false
+    @State private var stage: String = ""
     var body: some View {
         NavigationView {
             VStack{
-                LinearGradient(colors: [.purple, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    .hueRotation(.degrees(animateGradient ? 45 : 0))
-                    .ignoresSafeArea()
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
-                            animateGradient.toggle()
+                ZStack{
+                    LinearGradient(colors: [.purple, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .hueRotation(.degrees(animateGradient ? 45 : 0))
+                        .ignoresSafeArea()
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
+                                animateGradient.toggle()
+                            }
+                        }
+                    
+                    VStack {
+                        TextField(" stage (no capitals)", text: $stage)
+                            .background(Color.white.opacity(0.2))
+                            .cornerRadius(7)
+                            .padding()
+                            .frame(width: 200)
+                        
+                        Button(action: {
+                            print("The stage is: \(self.stage)")
+                        }) {
+                            Text("Save")
                         }
                     }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -34,7 +51,7 @@ struct Feed: View {
                         .frame(width: 27, height: 27)
                 }
             }
-            .onAppear{                
+            .onAppear{
                 if let post = URL(string: "https://next.c22code.repl.co") {
                     let task = URLSession.shared.dataTask(with: post) {(data, response, error) in
                         guard let data = data else { return }
@@ -47,11 +64,11 @@ struct Feed: View {
                             } catch {
                                 print("Error converting JSON data to string")
                             }
-                            let helpdeskArray = json["helpdesk"] as? [[String: Any]]
-                            let helpdeskDict = helpdeskArray?.first
-                            if let title = helpdeskDict?["title"] as? String {
-                                if let body = helpdeskDict?["body"] as? String {
-                                    if let key = helpdeskDict?["key"] as? Int {
+                            let someArray = json[stage] as? [[String: Any]]
+                            let someDict = someArray?.first
+                            if let title = someDict?["title"] as? String {
+                                if let body = someDict?["body"] as? String {
+                                    if let key = someDict?["key"] as? Int {
                                         showMe(title: title, body: body, key: key)
                                     }
                                 }
