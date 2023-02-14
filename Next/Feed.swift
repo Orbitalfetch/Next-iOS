@@ -35,6 +35,35 @@ struct Feed: View {
                         }) {
                             Text("Save")
                         }
+                        Button(action: {
+                            if let post = URL(string: "https://next.c22code.repl.co") {
+                                let task = URLSession.shared.dataTask(with: post) {(data, response, error) in
+                                    guard let data = data else { return }
+                                    if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                                        do {
+                                            // JSON String convertion
+                                            let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
+                                            let jsonString = String(data: jsonData, encoding: .utf8)
+            //                              UIApplication.shared.alert(title:"Fetched json", body:jsonString!)
+                                        } catch {
+                                            print("Error converting JSON data to string")
+                                        }
+                                        let someArray = json[stage] as? [[String: Any]]
+                                        let someDict = someArray?.first
+                                        if let title = someDict?["title"] as? String {
+                                            if let body = someDict?["body"] as? String {
+                                                if let key = someDict?["key"] as? Int {
+                                                    showMe(title: title, body: body, key: key)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                task.resume()
+                            }
+                        }) {
+                            Text("Reloop")
+                        }
                     }
                 }
             }

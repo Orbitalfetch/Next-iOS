@@ -11,7 +11,6 @@ var stageKey = "idk"
 struct Stages: View {
     @State private var animateGradient = false
     var body: some View {
-        NavigationView {
             VStack{
 //                Section(header: Text("Settings"), footer: Text("This will set your feed to this stage. You could change at anytime.")) {
 //                    Button("Select a new stage") {
@@ -44,7 +43,6 @@ struct Stages: View {
                         }
                     }
             }
-        }
     }
 }
 
