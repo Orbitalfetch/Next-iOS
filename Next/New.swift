@@ -8,17 +8,48 @@
 import SwiftUI
 
 struct New: View {
+    @State private var customtitle: String = ""
+    @State private var customdesc: String = ""
+    @State private var stage: String = ""
     @State private var animateGradient = false
     var body: some View {
         VStack{
-            LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
-                .hueRotation(.degrees(animateGradient ? 45 : 0))
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
-                        animateGradient.toggle()
+            ZStack{
+                LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .hueRotation(.degrees(animateGradient ? 45 : 0))
+                    .ignoresSafeArea()
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
+                            animateGradient.toggle()
+                        }
+                    }
+                
+                VStack {
+                    TextField(" stage (no capitals)", text: $stage)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(7)
+                        .padding()
+                        .frame(width: 200)
+                    TextField("Title", text: $customtitle)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(7)
+                        .padding()
+                        .frame(width: 200)
+                    TextField("Post", text: $customdesc)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(7)
+                        .padding()
+                        .frame(width: 200)
+                    
+                    Button(action: {
+                        print("The title is: \(self.customtitle)")
+                        print("The post is: \(self.customdesc)")
+                        post(titlee: customtitle, bodyy: customdesc, stagee: stage)
+                    }) {
+                        Text("Post")
                     }
                 }
+            }
         }
     }
 }
