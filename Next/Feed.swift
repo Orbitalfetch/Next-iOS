@@ -10,6 +10,9 @@ import SwiftUI
 struct Feed: View {
     @State private var animateGradient = false
     @State private var stage: String = ""
+    @State private var showAlert = false
+    @State private var showAlerted = false
+    @State private var serialnb = UserDefaults.standard.string(forKey: "serialNumber")
     var body: some View {
         NavigationView {
             VStack{
@@ -78,6 +81,35 @@ struct Feed: View {
                         .aspectRatio(contentMode: .fit)
                         .clipShape(Circle())
                         .frame(width: 27, height: 27)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showAlert.toggle()
+                    }) {
+                        Image(systemName: "info.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Welcome to our app !"),
+                            message: Text("The client is fully free and almost all open source, so you can check out the code ! The app was made by c22dev, and the whole API server was made by boredcoder411 (we worked together during the project). Even if the app is certified as anonymous, some data may be saved for moderation purpose. You could see more info by clicking Open."),
+                            primaryButton: .default(
+                                Text("Open"),
+                                action: {
+                                    UIApplication.shared.open(URL(string: "https://info-next.c22code.repl.co/")!)
+                                }
+                            ),
+                            secondaryButton: .default(
+                                Text("ID"),
+                                action: {
+                                    UIPasteboard.general.string = serialnb
+                                    UIApplication.shared.alert(title:"Device ID", body:"If developers ask for it, here is your device ID : \(String(describing: serialnb)) - It was pasted to clipboard")
+                                }
+                            )
+                        )
+                    }
                 }
             }
             .onAppear{

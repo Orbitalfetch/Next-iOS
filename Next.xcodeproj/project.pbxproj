@@ -15,6 +15,7 @@
 		F1769CFA2999A96D0056B719 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF22999A96D0056B719 /* Feed.swift */; };
 		F1769CFB2999A96D0056B719 /* Stages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF32999A96D0056B719 /* Stages.swift */; };
 		F1769CFC2999A96D0056B719 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1769CF42999A96D0056B719 /* ContentView.swift */; };
+		F1C133E0299C53E400D8286D /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F1C133DF299C53E400D8286D /* CryptoSwift */; };
 		F1E1F635299A604200C3394D /* PostSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1F634299A604200C3394D /* PostSystem.swift */; };
 		F1F4161E299C354E00E731A8 /* SN.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4161D299C354E00E731A8 /* SN.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		F1769CF22999A96D0056B719 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		F1769CF32999A96D0056B719 /* Stages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stages.swift; sourceTree = "<group>"; };
 		F1769CF42999A96D0056B719 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F1AE3D88299C5398002D72EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F1E1F634299A604200C3394D /* PostSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSystem.swift; sourceTree = "<group>"; };
 		F1F4161D299C354E00E731A8 /* SN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SN.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1C133E0299C53E400D8286D /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		F1769CEB2999A96D0056B719 /* Next */ = {
 			isa = PBXGroup;
 			children = (
+				F1AE3D88299C5398002D72EA /* Info.plist */,
 				F1769CEC2999A96D0056B719 /* Assets.xcassets */,
 				F1769CED2999A96D0056B719 /* Preview Content */,
 				F1769CEF2999A96D0056B719 /* NextApp.swift */,
@@ -102,6 +106,7 @@
 			);
 			name = Next;
 			packageProductDependencies = (
+				F1C133DF299C53E400D8286D /* CryptoSwift */,
 			);
 			productName = "bored-client";
 			productReference = F132F0962990364B0083EB15 /* Next.app */;
@@ -132,6 +137,7 @@
 			);
 			mainGroup = F132F08D2990364B0083EB15;
 			packageReferences = (
+				F1C133DE299C53E300D8286D /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = F132F0972990364B0083EB15 /* Products */;
 			projectDirPath = "";
@@ -298,6 +304,7 @@
 				DEVELOPMENT_TEAM = 7G89J82G2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Next/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Next !";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -330,6 +337,7 @@
 				DEVELOPMENT_TEAM = 7G89J82G2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Next/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Next !";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -373,6 +381,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F1C133DE299C53E300D8286D /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F1C133DF299C53E400D8286D /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1C133DE299C53E300D8286D /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F132F08E2990364B0083EB15 /* Project object */;
 }
