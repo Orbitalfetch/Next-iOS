@@ -42,8 +42,8 @@ struct New: View {
                         .frame(width: 200)
                     
                     Button(action: {
-                        print("The title is: \(self.customtitle)")
-                        print("The post is: \(self.customdesc)")
+                        self.customtitle
+                        self.customdesc
                         post(titlee: customtitle, bodyy: customdesc, stagee: stage)
                     }) {
                         Text("Post")

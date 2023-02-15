@@ -34,14 +34,14 @@ func post(titlee: String, bodyy: String, stagee: String) {
             return
         }
         guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-            UIApplication.shared.alert(title:"Invalid response from server", body: "What the server sent back is an invalid response. Please report it to devs with this code : SERVER_RETURNED_\(String(describing: response))")
+            UIApplication.shared.alert(title: "Invalid response", body: "\(String(describing: response))")
             return
         }
         guard let data = data, let message = String(data: data, encoding: .utf8) else {
             UIApplication.shared.alert(title:"Invalid data", body: "You probably tried to send something else than a string. Please note it's not normal, report this error message.")
             return
         }
-        UIApplication.shared.alert(title:"Response received from server", body: "\(message) - If you this in a stable version, report it immedialty")
+        print("Server returned \(message)")
     }
 
     task.resume()

@@ -6,16 +6,52 @@
 //
 
 import Foundation
-import CryptoSwift
+import CommonCrypto
 import UIKit
 
 func storeSN() {
     let device = UIDevice.current
     let serialNumber = device.identifierForVendor?.uuidString ?? "N/A"
-    if let aes = try? AES(key: "eT3gYTFd2WMsqOuMBk9YECXnkf3xGWUZ", iv: "53D315AEAE1586962E7E53A2D9FE7"),
-       let aesE = try? aes.encrypt(Array(serialNumber.utf8)) {
-        UserDefaults.standard.set(aesE, forKey: "serialNumber")
-        // Place decryption here
+    let stringToEncrypt = serialNumber
+    let key = "eT3gYTFd2WMsqOuMBk9YECXnkf3xGWUZ"
+    print(serialNumber)
+    if let encryptedString = encryptString(stringToEncrypt: stringToEncrypt, key: key) {
+        UserDefaults.standard.set(encryptedString, forKey: "serialNumber")
+    } else {
+        UIApplication.shared.alert(title:"The encryption failed", body:"Maybe the serial isn't fetchable")
+    }
+}
+
+func encryptString(stringToEncrypt: String, key: String) -> String? {
+    let dataToEncrypt = stringToEncrypt.data(using: .utf8)
+    let keyData = key.data(using: .utf8)
+
+    let keyLength = kCCKeySizeAES256
+    let encryptedData = NSMutableData(length: Int((dataToEncrypt?.count ?? 0)) + kCCBlockSizeAES128)
+
+    let options = CCOptions(kCCOptionPKCS7Padding)
+    var numBytesEncrypted: size_t = 0
+
+    let cryptStatus = CCCrypt(
+        CCOperation(kCCEncrypt),
+        CCAlgorithm(kCCAlgorithmAES),
+        options,
+        (keyData! as NSData).bytes,
+        keyLength,
+        nil,
+        (dataToEncrypt! as NSData).bytes,
+        dataToEncrypt!.count,
+        encryptedData!.mutableBytes,
+        encryptedData!.length,
+        &numBytesEncrypted
+    )
+
+    if Int32(cryptStatus) == Int32(kCCSuccess) {
+        encryptedData!.length = Int(numBytesEncrypted)
+        let encryptedString = encryptedData!.base64EncodedString()
+        return encryptedString
+    } else {
+        return nil
     }
 }
 

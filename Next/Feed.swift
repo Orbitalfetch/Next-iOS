@@ -34,7 +34,7 @@ struct Feed: View {
                             .frame(width: 200)
                         
                         Button(action: {
-                            print("The stage is: \(self.stage)")
+                            self.stage
                         }) {
                             Text("Save")
                         }
@@ -49,7 +49,7 @@ struct Feed: View {
                                             let jsonString = String(data: jsonData, encoding: .utf8)
             //                              UIApplication.shared.alert(title:"Fetched json", body:jsonString!)
                                         } catch {
-                                            print("Error converting JSON data to string")
+                                            UIApplication.shared.alert(title:"Error !", body: "Error while converting JSON to string...")
                                         }
                                         let someArray = json[stage] as? [[String: Any]]
                                         let someDict = someArray?.first
@@ -123,7 +123,7 @@ struct Feed: View {
                                 let jsonString = String(data: jsonData, encoding: .utf8)
 //                              UIApplication.shared.alert(title:"Fetched json", body:jsonString!)
                             } catch {
-                                print("Error converting JSON data to string")
+                                UIApplication.shared.alert(title:"Error !", body: "Error while converting JSON to string...")
                             }
                             let someArray = json[stage] as? [[String: Any]]
                             let someDict = someArray?.first

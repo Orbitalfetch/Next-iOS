@@ -13,12 +13,8 @@ struct NextApp: App {
         WindowGroup {
             ContentView()
                 .onAppear{
-                    let defaults = UserDefaults.standard
-                    if !defaults.bool(forKey: "hasRunBefore") {
                         storeSN()
-                        defaults.set(true, forKey: "hasRunBefore")
                     }
-                }
         }
     }
 }
