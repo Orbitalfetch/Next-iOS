@@ -35,37 +35,9 @@ struct Feed: View {
                         
                         Button(action: {
                             self.stage
+                            loopAlertFetch(stagee: stage, laindex: 0)
                         }) {
-                            Text("Save")
-                        }
-                        Button(action: {
-                            if let post = URL(string: "https://next.c22code.repl.co") {
-                                let task = URLSession.shared.dataTask(with: post) {(data, response, error) in
-                                    guard let data = data else { return }
-                                    if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                                        do {
-                                            // JSON String convertion
-                                            let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
-                                            let jsonString = String(data: jsonData, encoding: .utf8)
-            //                              UIApplication.shared.alert(title:"Fetched json", body:jsonString!)
-                                        } catch {
-                                            UIApplication.shared.alert(title:"Error !", body: "Error while converting JSON to string...")
-                                        }
-                                        let someArray = json[stage] as? [[String: Any]]
-                                        let someDict = someArray?.first
-                                        if let title = someDict?["title"] as? String {
-                                            if let body = someDict?["body"] as? String {
-                                                if let key = someDict?["key"] as? Int {
-                                                    showMe(title: title, body: body, key: key)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                task.resume()
-                            }
-                        }) {
-                            Text("Reloop")
+                            Text("Loop")
                         }
                     }
                 }
@@ -113,38 +85,48 @@ struct Feed: View {
                 }
             }
             .onAppear{
-                if let post = URL(string: "https://next.c22code.repl.co") {
-                    let task = URLSession.shared.dataTask(with: post) {(data, response, error) in
-                        guard let data = data else { return }
-                        if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                            do {
-                                // JSON String convertion
-                                let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
-                                let jsonString = String(data: jsonData, encoding: .utf8)
-//                              UIApplication.shared.alert(title:"Fetched json", body:jsonString!)
-                            } catch {
-                                UIApplication.shared.alert(title:"Error !", body: "Error while converting JSON to string...")
-                            }
-                            let someArray = json[stage] as? [[String: Any]]
-                            let someDict = someArray?.first
-                            if let title = someDict?["title"] as? String {
-                                if let body = someDict?["body"] as? String {
-                                    if let key = someDict?["key"] as? Int {
-                                        showMe(title: title, body: body, key: key)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    task.resume()
-                }
+
             }
         }
     }
 }
-func showMe(title: String, body: String, key: Int) {
+
+func loopAlertFetch(stagee: String, laindex: Int){
+    let url = URL(string: "https://next.c22code.repl.co/api")!
+    let arrayName = stagee
+    var lastIndex = laindex
+    print("ID before fetching post\(lastIndex)")
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        if let data = data {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                if let array = json[arrayName] as? [[String: Any]], array.count > 0 {
+                    for index in (lastIndex..<array.count).reversed() {
+                        // Check if this object has already been shown
+                        if index < lastIndex {
+                            break
+                        }
+                        let object = array[lastIndex]
+                        if let title = object["title"] as? String, let body = object["body"] as? String {
+                            lastIndex = laindex + 1
+                            showMe(title: title, body: body, key: lastIndex, stageee: stagee)
+                        }
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+        print("ID after fetching post\(lastIndex)")
+    }.resume()
+
+}
+func showMe(title: String, body: String, key: Int, stageee: String) {
+    print("ID after fetching func \(key)")
     UIApplication.shared.postAlert(title: title,body: body, onOK: {
-        showMe(title:"Wow...", body:"It looks like you nexted to the bottom and that we do not have anything to show you anymore. Try refreshing the app !", key:0)
+        loopAlertFetch(stagee: stageee, laindex: key)
     }, infoAbt: {
         
     }, noCancel: false, key: 1)

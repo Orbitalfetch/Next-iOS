@@ -49,6 +49,40 @@ func post(titlee: String, bodyy: String, stagee: String) {
 
 }
 
+func newStage(stagee: String) {
+    guard let url = URL(string: "https://next.c22code.repl.co/newStage") else {
+        return
+    }
+
+    let data = ["stage": stagee]
+
+    let jsonData = try! JSONSerialization.data(withJSONObject: data)
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = jsonData
+
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            UIApplication.shared.alert(title:"An error occured", body: "\(error)")
+            return
+        }
+        guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            UIApplication.shared.alert(title: "Invalid response", body: "\(String(describing: response))")
+            return
+        }
+        guard let data = data, let message = String(data: data, encoding: .utf8) else {
+            UIApplication.shared.alert(title:"Invalid data", body: "You probably tried to send something else than a string. Please note it's not normal, report this error message.")
+            return
+        }
+        print("Server returned \(message)")
+    }
+
+    task.resume()
+    UIApplication.shared.alert(title:"Posted !", body:"The stage \(stagee) was created !")
+
+}
 
 extension Dictionary {
     func percentEncoded() -> Data? {

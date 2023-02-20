@@ -16,9 +16,43 @@ extension UIApplication {
             currentUIAlertController?.dismiss(animated: animated)
         }
     }
-    func stage(completion: @escaping (String?)->Void) {
-
+    
+    func newStageAlert(sampletext: String) {
+        let alertController = UIAlertController(title: "Enter stage name", message: nil, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "stage (no caps)"
+        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            if let text = alertController.textFields?.first?.text {
+                newStage(stagee: text)
+            }
+        }
+        alertController.addAction(okAction)
+        present(alert: alertController)
     }
+    
+    func setStageAlert(sampletext: String) -> String {
+        var stageName = ""
+        
+        let alertController = UIAlertController(title: "Enter stage name", message: nil, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "stage (no caps)"
+        }
+        
+        let okAction = UIAlertAction(title: "Set", style: .default) { (action) in
+            if let text = alertController.textFields?.first?.text {
+                stageName = text
+            }
+        }
+        alertController.addAction(okAction)
+        present(alert: alertController)
+        while stageName.isEmpty {
+        }
+        return stageName
+    }
+
+    
+    
     func alert(title: String = "Error", body: String, animated: Bool = true, withButton: Bool = true) {
         DispatchQueue.main.async {
             currentUIAlertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
@@ -45,7 +79,6 @@ extension UIApplication {
             self.present(alert: currentUIAlertController!)
         }
     }
-
     func postInfo(title: String = "Error", body: String, onOK: @escaping () -> (), infoAbt: @escaping () -> (), noCancel: Bool) {
         DispatchQueue.main.async {
             currentUIAlertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
