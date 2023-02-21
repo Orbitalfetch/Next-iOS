@@ -17,6 +17,7 @@ extension UIApplication {
         }
     }
     
+    //stage
     func newStageAlert(sampletext: String) {
         let alertController = UIAlertController(title: "Enter stage name", message: nil, preferredStyle: .alert)
         alertController.addTextField { (textField) in
@@ -27,31 +28,59 @@ extension UIApplication {
                 newStage(stagee: text)
             }
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         present(alert: alertController)
     }
     
-    func setStageAlert(sampletext: String) -> String {
-        var stageName = ""
-        
-        let alertController = UIAlertController(title: "Enter stage name", message: nil, preferredStyle: .alert)
+    // post start
+    func newPostAlert(sampletext: String) {
+        let alertController = UIAlertController(title: "Enter the stage", message: nil, preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.placeholder = "stage (no caps)"
         }
-        
-        let okAction = UIAlertAction(title: "Set", style: .default) { (action) in
+        let okAction = UIAlertAction(title: "Next", style: .default) { (action) in
             if let text = alertController.textFields?.first?.text {
-                stageName = text
+                self.TitlenewStageAlert(stagee: text)
             }
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         present(alert: alertController)
-        while stageName.isEmpty {
-        }
-        return stageName
     }
-
-    
+    func TitlenewStageAlert(stagee: String) {
+        let alertController = UIAlertController(title: "Enter the title", message: nil, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Title..."
+        }
+        let okAction = UIAlertAction(title: "Next", style: .default) { (action) in
+            if let text = alertController.textFields?.first?.text {
+                self.BodynewStageAlert(stageee: stagee, titlee: text)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alert: alertController)
+    }
+    func BodynewStageAlert(stageee: String, titlee: String) {
+        let alertController = UIAlertController(title: "Enter the post", message: nil, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Content..."
+        }
+        let okAction = UIAlertAction(title: "Post !", style: .default) { (action) in
+            if let text = alertController.textFields?.first?.text {
+                post(titlee: titlee, bodyy: text, stagee: stageee)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alert: alertController)
+    }
+    // post end
     
     func alert(title: String = "Error", body: String, animated: Bool = true, withButton: Bool = true) {
         DispatchQueue.main.async {
@@ -109,3 +138,45 @@ extension UIApplication {
         }
     }
 }
+
+// fetch post start
+func loopAlertFetch(stagee: String, laindex: Int){
+    let url = URL(string: "https://next.c22code.repl.co/api")!
+    let arrayName = stagee
+    var lastIndex = laindex
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        if let data = data {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                if let array = json[arrayName] as? [[String: Any]], array.count > 0 {
+                    for index in (lastIndex..<array.count).reversed() {
+                        if index < lastIndex {
+                            break
+                        }
+                        let object = array[lastIndex]
+                        if let title = object["title"] as? String, let body = object["body"] as? String {
+                            lastIndex = laindex + 1
+                            showMe(title: title, body: body, key: lastIndex, stageee: stagee)
+                        }
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }.resume()
+
+}
+
+// alert
+func showMe(title: String, body: String, key: Int, stageee: String) {
+    UIApplication.shared.postAlert(title: title,body: body, onOK: {
+        loopAlertFetch(stagee: stageee, laindex: key)
+    }, infoAbt: {
+        
+    }, noCancel: false, key: 1)
+}
+
+// fetch post end

@@ -6,42 +6,41 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct Feed: View {
-    @State private var animateGradient = false
+    @State private var text = ""
     @State private var stage: String = ""
     @State private var showAlert = false
-    @State private var showAlerted = false
-    @State private var serialnb = UserDefaults.standard.string(forKey: "serialNumber")
+    @State private var serialnb = UserDefaults.standard.string(forKey: "serialEncrypted")
     var body: some View {
         NavigationView {
-            VStack{
-                ZStack{
-                    LinearGradient(colors: [.purple, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        .hueRotation(.degrees(animateGradient ? 45 : 0))
-                        .ignoresSafeArea()
-                        .onAppear {
-                            withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
-                                animateGradient.toggle()
-                            }
-                        }
-                    
-                    VStack {
-                        TextField(" stage (no capitals)", text: $stage)
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(7)
-                            .padding()
-                            .frame(width: 200)
-                        
-                        Button(action: {
-                            self.stage
-                            loopAlertFetch(stagee: stage, laindex: 0)
-                        }) {
-                            Text("Loop")
-                        }
-                    }
-                }
+            VStack {
             }
+            
+            .onAppear {
+                let alertController = UIAlertController(title: "Enter the stage", message: nil, preferredStyle: .alert)
+                
+                alertController.addTextField { textField in
+                    textField.placeholder = "stage (no capitals)"
+                }
+                
+                let okAction = UIAlertAction(title: "Go !", style: .default) { _ in
+                    guard let textField = alertController.textFields?.first,
+                          let text = textField.text else { return }
+                    self.text = text
+                    loopAlertFetch(stagee: text, laindex: 0)
+                }
+                
+                let cancelAction = UIAlertAction(title: "Out", style: .cancel, handler: nil)
+                
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+                
+                guard let viewController = UIApplication.shared.windows.first?.rootViewController else { return }
+                viewController.present(alertController, animated: true, completion: nil)
+            }
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Text("Next")
@@ -77,60 +76,46 @@ struct Feed: View {
                                 Text("ID"),
                                 action: {
                                     UIPasteboard.general.string = serialnb
-                                    UIApplication.shared.alert(title:"Device ID", body:"If developers ask for it, here is your device ID : \(String(describing: serialnb)) - It was pasted to clipboard")
+                                    UIApplication.shared.alert(title:"Device ID", body:"If developers ask for it, here is your device ID : \(serialnb ?? "none") - It was pasted to clipboard")
                                 }
                             )
                         )
                     }
                 }
-            }
-            .onAppear{
-
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        let alertController = UIAlertController(title: "Enter the stage", message: nil, preferredStyle: .alert)
+                        
+                        alertController.addTextField { textField in
+                            textField.placeholder = "stage (no capitals)"
+                        }
+                        
+                        let okAction = UIAlertAction(title: "Go !", style: .default) { _ in
+                            guard let textField = alertController.textFields?.first,
+                                  let text = textField.text else { return }
+                            self.text = text
+                            loopAlertFetch(stagee: text, laindex: 0)
+                        }
+                        
+                        let cancelAction = UIAlertAction(title: "Out", style: .cancel, handler: nil)
+                        
+                        alertController.addAction(okAction)
+                        alertController.addAction(cancelAction)
+                        
+                        guard let viewController = UIApplication.shared.windows.first?.rootViewController else { return }
+                        viewController.present(alertController, animated: true, completion: nil)
+                    }) {
+                        Image(systemName: "arrow.clockwise")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                }
             }
         }
     }
 }
 
-func loopAlertFetch(stagee: String, laindex: Int){
-    let url = URL(string: "https://next.c22code.repl.co/api")!
-    let arrayName = stagee
-    var lastIndex = laindex
-    print("ID before fetching post\(lastIndex)")
-    URLSession.shared.dataTask(with: url) { data, response, error in
-        if let data = data {
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                if let array = json[arrayName] as? [[String: Any]], array.count > 0 {
-                    for index in (lastIndex..<array.count).reversed() {
-                        // Check if this object has already been shown
-                        if index < lastIndex {
-                            break
-                        }
-                        let object = array[lastIndex]
-                        if let title = object["title"] as? String, let body = object["body"] as? String {
-                            lastIndex = laindex + 1
-                            showMe(title: title, body: body, key: lastIndex, stageee: stagee)
-                        }
-                    }
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        } else if let error = error {
-            print(error.localizedDescription)
-        }
-        print("ID after fetching post\(lastIndex)")
-    }.resume()
-
-}
-func showMe(title: String, body: String, key: Int, stageee: String) {
-    print("ID after fetching func \(key)")
-    UIApplication.shared.postAlert(title: title,body: body, onOK: {
-        loopAlertFetch(stagee: stageee, laindex: key)
-    }, infoAbt: {
-        
-    }, noCancel: false, key: 1)
-}
 struct Feed_Previews: PreviewProvider {
     static var previews: some View {
         Feed()

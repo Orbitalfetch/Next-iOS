@@ -16,7 +16,7 @@ struct ContentView: View {
                 }
             New()
                 .tabItem {
-                    Label("Add", systemImage: "plus")
+                    Label("Post", systemImage: "plus")
                 }
             Stages()
                 .tabItem {

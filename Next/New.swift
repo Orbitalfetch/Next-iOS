@@ -8,45 +8,27 @@
 import SwiftUI
 
 struct New: View {
-    @State private var customtitle: String = ""
-    @State private var customdesc: String = ""
-    @State private var stage: String = ""
-    @State private var animateGradient = false
     var body: some View {
-        VStack{
-            ZStack{
-                LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    .hueRotation(.degrees(animateGradient ? 45 : 0))
-                    .ignoresSafeArea()
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
-                            animateGradient.toggle()
-                        }
-                    }
+        NavigationView{
+            VStack {
                 
-                VStack {
-                    TextField(" stage (no capitals)", text: $stage)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(7)
-                        .padding()
-                        .frame(width: 200)
-                    TextField("Title", text: $customtitle)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(7)
-                        .padding()
-                        .frame(width: 200)
-                    TextField("Post", text: $customdesc)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(7)
-                        .padding()
-                        .frame(width: 200)
-                    
+            }
+            .onAppear {
+                UIApplication.shared.newPostAlert(sampletext: "")
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Post")
+                        .bold()
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        self.customtitle
-                        self.customdesc
-                        post(titlee: customtitle, bodyy: customdesc, stagee: stage)
+                        UIApplication.shared.newPostAlert(sampletext: "")
                     }) {
-                        Text("Post")
+                        Image(systemName: "plus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
                     }
                 }
             }

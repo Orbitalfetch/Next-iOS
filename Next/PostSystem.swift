@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 
 func post(titlee: String, bodyy: String, stagee: String) {
     let serialnb = UserDefaults.standard.string(forKey: "serialNumber")
+    var whattoshow = ""
     guard let url = URL(string: "https://next.c22code.repl.co") else {
         return
     }
@@ -34,7 +36,7 @@ func post(titlee: String, bodyy: String, stagee: String) {
             return
         }
         guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-            UIApplication.shared.alert(title: "Invalid response", body: "\(String(describing: response))")
+            UIApplication.shared.alert(title: "Error", body: "\(String(describing: response))")
             return
         }
         guard let data = data, let message = String(data: data, encoding: .utf8) else {
@@ -42,11 +44,24 @@ func post(titlee: String, bodyy: String, stagee: String) {
             return
         }
         print("Server returned \(message)")
+        let servreturn = "\(message)"
+        if servreturn == "invalid_stage" {
+            whattoshow = "stage"
+        }
+        else {
+            UserDefaults.standard.set(message, forKey: "serialEncrypted")
+            print("Server returned \(message)")
+        }
     }
 
     task.resume()
-    UIApplication.shared.alert(title:"Posted !", body:"Your post was posted in \(stagee).")
-
+    if whattoshow == "stage" {
+        UIApplication.shared.alert(title:"The specified stage do not exist", body:"Try creating it in Stage tab !")
+        print("ximi")
+    }
+    else {
+        UIApplication.shared.alert(title:"Posted !", body:"Your post was posted in \(stagee).")
+    }
 }
 
 func newStage(stagee: String) {

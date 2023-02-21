@@ -9,32 +9,50 @@ import SwiftUI
 import UIKit
 
 struct Stages: View {
-    @State private var animateGradient = false
     var body: some View {
-        NavigationView{
-            VStack{
-                ZStack{
-                    LinearGradient(colors: [.green, .orange], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        .hueRotation(.degrees(animateGradient ? 45 : 0))
-                        .ignoresSafeArea()
-                        .onAppear {
-                            withAnimation(.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
-                                animateGradient.toggle()
-                            }
+        NavigationView {
+            VStack {
+                List {
+                    Section(header: Text("System")) {
+                        Section(header: Text("helpdesk")) {
+                            Text("Get some help on the plateform in general (all clients)")
                         }
-            }
-                VStack {
+                        Section(header: Text("suggestions")) {
+                            Text("Suggest any new features to the plateform")
+                        }
+                        Section(header: Text("report")) {
+                            Text("Report some abusive posts/stages on the network")
+                        }
+                        Section(header: Text("stage_showcase")) {
+                            Text("Why not sharing out the stage you just created ? There, you can !")
+                        }
+                    }
+                    Section(header: Text("API")) {
+                        Section(header: Text("announcements")) {
+                            Text("Get some of the latest news of Next")
+                        }
+                        Section(header: Text("changelog")) {
+                            Text("Get a more detailed report of updates")
+                        }
+                        Section(header: Text("clients")) {
+                            Text("Various client informations")
+                        }
+                    }
                 }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            UIApplication.shared.newStageAlert(sampletext: "")
-                        }) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 24, height: 24)
-                        }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Stages")
+                        .bold()
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        UIApplication.shared.newStageAlert(sampletext: "")
+                    }) {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
                     }
                 }
             }

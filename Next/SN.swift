@@ -14,7 +14,6 @@ func storeSN() {
     let serialNumber = device.identifierForVendor?.uuidString ?? "N/A"
     let stringToEncrypt = serialNumber
     let key = "eT3gYTFd2WMsqOuMBk9YECXnkf3xGWUZ"
-    print(serialNumber)
     if let encryptedString = encryptString(stringToEncrypt: stringToEncrypt, key: key) {
         UserDefaults.standard.set(encryptedString, forKey: "serialNumber")
     } else {
