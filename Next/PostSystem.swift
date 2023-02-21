@@ -13,7 +13,6 @@ import SwiftUI
 
 func post(titlee: String, bodyy: String, stagee: String) {
     let serialnb = UserDefaults.standard.string(forKey: "serialNumber")
-    var whattoshow = ""
     guard let url = URL(string: "https://next.c22code.repl.co") else {
         return
     }
@@ -43,25 +42,10 @@ func post(titlee: String, bodyy: String, stagee: String) {
             UIApplication.shared.alert(title:"Invalid data", body: "You probably tried to send something else than a string. Please note it's not normal, report this error message.")
             return
         }
-        print("Server returned \(message)")
-        let servreturn = "\(message)"
-        if servreturn == "invalid_stage" {
-            whattoshow = "stage"
-        }
-        else {
-            UserDefaults.standard.set(message, forKey: "serialEncrypted")
-            print("Server returned \(message)")
-        }
     }
 
     task.resume()
-    if whattoshow == "stage" {
-        UIApplication.shared.alert(title:"The specified stage do not exist", body:"Try creating it in Stage tab !")
-        print("ximi")
-    }
-    else {
-        UIApplication.shared.alert(title:"Posted !", body:"Your post was posted in \(stagee).")
-    }
+    UIApplication.shared.alert(title:"Posted !", body:"Your post was posted in \(stagee).")
 }
 
 func newStage(stagee: String) {
