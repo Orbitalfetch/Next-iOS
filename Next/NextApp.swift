@@ -9,12 +9,15 @@ import SwiftUI
 
 @main
 struct NextApp: App {
+    @State var blacklisted = false
+    @State private var serialNb = "unknown"
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .onAppear{
-                        storeSN()
-                    }
+                    storeSN()
+                    checkBlacklist()
+                }
         }
     }
 }

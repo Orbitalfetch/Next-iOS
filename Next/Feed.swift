@@ -12,7 +12,7 @@ struct Feed: View {
     @State private var text = ""
     @State private var stage: String = ""
     @State private var showAlert = false
-    @State private var serialnb = UserDefaults.standard.string(forKey: "serialEncrypted")
+    @State private var serialnb = UserDefaults.standard.string(forKey: "serialNumber")
     var body: some View {
         NavigationView {
             VStack {
